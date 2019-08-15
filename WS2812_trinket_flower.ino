@@ -8,7 +8,7 @@
 
 #define DATA_PIN 1
 #define BUTTON_PIN 2
-#define MAX_SEQUENCE_INDEX 12
+#define MAX_SEQUENCE_INDEX 16
 #define EEPROM_INDEX 0
 
 #define LIGHT_LEVEL_ONE 25
@@ -20,7 +20,7 @@
 #define CHASE_SPEED_TWO 150
 #define RAINBOW_SPEED 7
 
-#define NUM_LEDS 300 
+#define NUM_LEDS 35 
 
 
 CRGB leds[NUM_LEDS];
@@ -43,29 +43,29 @@ void loop()
   switch(currentSequence)
   {
     case 0:
-      color_chase(CRGB::White, CHASE_SPEED_ONE, LIGHT_LEVEL_ONE);
-      break;
+      color_chase(WHITE, CHASE_SPEED_ONE, LIGHT_LEVEL_ONE);
+      break;      
     case 1:
-      color_chase(CRGB::White, CHASE_SPEED_ONE, LIGHT_LEVEL_TWO);
-      break;
+      color_chase(WHITE, CHASE_SPEED_ONE, LIGHT_LEVEL_TWO);
+      break;      
     case 2:
-      color_chase(CRGB::White, CHASE_SPEED_ONE, LIGHT_LEVEL_THREE);
-      break;
+      color_chase(WHITE, CHASE_SPEED_ONE, LIGHT_LEVEL_THREE);
+      break;      
     case 3:
-      color_chase(CRGB::White, CHASE_SPEED_ONE, LIGHT_LEVEL_FOUR);
-      break;
+      color_chase(WHITE, CHASE_SPEED_ONE, LIGHT_LEVEL_FOUR);
+      break;      
     case 4:
-      color_chase(CRGB::BlueCyan, CHASE_SPEED_ONE, LIGHT_LEVEL_ONE);
-      break;
+      color_chase(WHITE, CHASE_SPEED_TWO, LIGHT_LEVEL_ONE);
+      break;      
     case 5:
-      color_chase(CRGB::BlueCyan, CHASE_SPEED_ONE, LIGHT_LEVEL_TWO);
-      break;
+      color_chase(WHITE, CHASE_SPEED_TWO, LIGHT_LEVEL_TWO);
+      break;      
     case 6:
-      color_chase(CRGB::BlueCyan, CHASE_SPEED_ONE, LIGHT_LEVEL_THREE);
-      break;
+      color_chase(WHITE, CHASE_SPEED_TWO, LIGHT_LEVEL_THREE);
+      break;      
     case 7:
-      color_chase(CRGB::BlueCyan, CHASE_SPEED_ONE, LIGHT_LEVEL_FOUR);
-      break;
+      color_chase(WHITE, CHASE_SPEED_TWO, LIGHT_LEVEL_FOUR);
+      break;      
     case 8:
       rainbow(CHASE_SPEED_ONE, LIGHT_LEVEL_ONE);
       break;
@@ -76,8 +76,19 @@ void loop()
       rainbow(CHASE_SPEED_ONE, LIGHT_LEVEL_THREE);
       break;
     case 11:
-    default:
       rainbow(CHASE_SPEED_ONE, LIGHT_LEVEL_FOUR);
+      break;
+    case 12:
+      rainbow(CHASE_SPEED_TWO, LIGHT_LEVEL_ONE);
+      break;      
+    case 13:
+      rainbow(CHASE_SPEED_TWO, LIGHT_LEVEL_TWO);
+      break;      
+    case 14:
+      rainbow(CHASE_SPEED_TWO, LIGHT_LEVEL_THREE);
+      break;      
+    default:
+      rainbow(CHASE_SPEED_TWO, LIGHT_LEVEL_FOUR);
       break;
   }
 }
@@ -149,3 +160,23 @@ void rainbow(uint8_t wait, uint8_t brightness)
   return;
 }
 
+void missing_dot_chase(uint32_t color, uint8_t wait, uint8_t brightness)
+{
+  for (int led_brightness = brightness; led_brightness > 10; led_brightness/=2)
+  {
+    FastLED.setBrightness(led_brightness);
+    fill_solid(leds, NUM_LEDS, color);
+
+    for(int led_number = 0; led_number < NUM_LEDS; led_number++)
+    {
+      leds[led_number] =  CRGB::Black; // Set new pixel 'off'
+      if( led_number > 0 && led_number < NUM_LEDS)
+      {
+        leds[led_number-1] = color; // Set previous pixel 'on'
+      }
+      FastLED.show();
+      delay(wait);
+    }
+  }
+  return;
+}
