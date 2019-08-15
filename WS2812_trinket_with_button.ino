@@ -11,13 +11,16 @@
 #define MAX_SEQUENCE_INDEX 7
 #define EEPROM_INDEX 0
 
-#define MIN_BRIGHTNESS 100
-#define MAX_BRIGHTNESS 255
+#define LIGHT_LEVEL_ONE 25
+#define LIGHT_LEVEL_TWO 50
+#define LIGHT_LEVEL_THREE 100
+#define LIGHT_LEVEL_FOUR 255
 
-#define CHASE_SPEED 50
+#define CHASE_SPEED_ONE 50
+#define CHASE_SPEED_TWO 150
 #define RAINBOW_SPEED 7
 
-#define NUM_LEDS 25 
+#define NUM_LEDS 300 
 
 
 CRGB leds[NUM_LEDS];
@@ -40,29 +43,41 @@ void loop()
   switch(currentSequence)
   {
     case 0:
-      color_chase(CRGB::White, CHASE_SPEED, MIN_BRIGHTNESS);
+      color_chase(CRGB::White, CHASE_SPEED_ONE, LIGHT_LEVEL_ONE);
       break;
     case 1:
-      color_chase(CRGB::White, CHASE_SPEED, MAX_BRIGHTNESS);
+      color_chase(CRGB::White, CHASE_SPEED_ONE, LIGHT_LEVEL_TWO);
       break;
     case 2:
-      color_chase(CRGB::BlueViolet, CHASE_SPEED, MIN_BRIGHTNESS);
+      color_chase(CRGB::White, CHASE_SPEED_ONE, LIGHT_LEVEL_THREE);
       break;
     case 3:
-      color_chase(CRGB::BlueViolet, CHASE_SPEED, MAX_BRIGHTNESS);
+      color_chase(CRGB::White, CHASE_SPEED_ONE, LIGHT_LEVEL_FOUR);
       break;
     case 4:
-      color_chase(CRGB::Cyan, CHASE_SPEED, MIN_BRIGHTNESS);
+      color_chase(CRGB::BlueViolet, CHASE_SPEED_ONE, LIGHT_LEVEL_ONE);
       break;
     case 5:
-      color_chase(CRGB::Cyan, CHASE_SPEED, MAX_BRIGHTNESS);
+      color_chase(CRGB::BlueViolet, CHASE_SPEED_ONE, LIGHT_LEVEL_TWO);
       break;
     case 6:
-      rainbow(CHASE_SPEED, MIN_BRIGHTNESS);
+      color_chase(CRGB::BlueViolet, CHASE_SPEED_ONE, LIGHT_LEVEL_THREE);
       break;
     case 7:
+      color_chase(CRGB::BlueViolet, CHASE_SPEED_ONE, LIGHT_LEVEL_FOUR);
+      break;
+    case 8:
+      rainbow(CHASE_SPEED_ONE, LIGHT_LEVEL_ONE);
+      break;
+    case 9:
+      rainbow(CHASE_SPEED_ONE, LIGHT_LEVEL_TWO);
+      break;
+    case 10:
+      rainbow(CHASE_SPEED_ONE, LIGHT_LEVEL_THREE);
+      break;
+    case 11:
     default:
-      rainbow(CHASE_SPEED, MAX_BRIGHTNESS);
+      rainbow(CHASE_SPEED_ONE, LIGHT_LEVEL_FOUR);
       break;
   }
 }
