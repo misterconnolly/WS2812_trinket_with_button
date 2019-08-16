@@ -8,16 +8,16 @@
 
 #define DATA_PIN 1
 #define BUTTON_PIN 2
-#define MAX_SEQUENCE_INDEX 16
+#define MAX_SEQUENCE_INDEX 15
 #define EEPROM_INDEX 0
 
-#define LIGHT_LEVEL_ONE 25
-#define LIGHT_LEVEL_TWO 50
-#define LIGHT_LEVEL_THREE 100
-#define LIGHT_LEVEL_FOUR 255
+#define LIGHT_LEVEL_ONE 7
+#define LIGHT_LEVEL_TWO 12
+#define LIGHT_LEVEL_THREE 25
+#define LIGHT_LEVEL_FOUR 75
 
-#define CHASE_SPEED_ONE 50
-#define CHASE_SPEED_TWO 150
+#define CHASE_SPEED_ONE 100
+#define CHASE_SPEED_TWO 300
 #define RAINBOW_SPEED 7
 
 #define NUM_LEDS 35 
@@ -87,6 +87,7 @@ void loop()
     case 14:
       rainbow(CHASE_SPEED_TWO, LIGHT_LEVEL_THREE);
       break;      
+    case 15:
     default:
       rainbow(CHASE_SPEED_TWO, LIGHT_LEVEL_FOUR);
       break;
